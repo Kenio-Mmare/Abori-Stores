@@ -24,6 +24,7 @@ from app.models.product import Product
 from app.models.stock_movement import StockMovement
 from app.models.supplier import Supplier
 from app.models.user import User
+from app.models.purchase import Purchase
 
 target_metadata = Base.metadata
 # other values from the config, defined by the needs of env.py,
