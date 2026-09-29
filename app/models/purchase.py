@@ -1,6 +1,7 @@
 from datetime import date, datetime
+from decimal import Decimal
 
-from sqlalchemy import Date, DateTime, ForeignKey, String, Text
+from sqlalchemy import Date, DateTime, ForeignKey, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database.base import Base
@@ -33,6 +34,30 @@ class Purchase(Base):
     notes: Mapped[str | None] = mapped_column(
         Text,
         nullable=True,
+    )
+
+    subtotal: Mapped[Decimal] = mapped_column(
+        Numeric(14, 2),
+        nullable=False,
+        default=0,
+    )
+
+    tax_amount: Mapped[Decimal] = mapped_column(
+        Numeric(14, 2),
+        nullable=False,
+        default=0,
+    )
+
+    total_amount: Mapped[Decimal] = mapped_column(
+        Numeric(14, 2),
+        nullable=False,
+        default=0,
+    )
+
+    payment_status: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        default="unpaid",
     )
 
     status: Mapped[str] = mapped_column(

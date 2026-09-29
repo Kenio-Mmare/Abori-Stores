@@ -28,6 +28,12 @@ class Sale(Base):
         index=True,
     )
 
+    customer_id: Mapped[int | None] = mapped_column(
+        ForeignKey("customers.id"),
+        nullable=True,
+        index=True,
+    )
+
     sale_date: Mapped[datetime] = mapped_column(
         DateTime,
         nullable=False,
@@ -56,6 +62,12 @@ class Sale(Base):
         Numeric(14, 2),
         nullable=False,
         default=0,
+    )
+
+    payment_status: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        default="unpaid",
     )
 
     status: Mapped[str] = mapped_column(

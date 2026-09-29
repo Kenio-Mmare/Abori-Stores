@@ -35,4 +35,9 @@ class PurchaseItem(Base):
         Numeric(12, 2),
         nullable=False,
     )
+
+    line_total: Mapped[Decimal] = mapped_column(
+        Numeric(14, 2),
+        nullable=False,
+    )
     

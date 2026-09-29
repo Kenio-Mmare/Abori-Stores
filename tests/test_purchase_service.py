@@ -50,6 +50,7 @@ def test_receive_purchase(session):
         product_id=product.id,
         quantity=Decimal("20"),
         unit_cost=Decimal("700.00"),
+        line_total=Decimal("14000.00"),
     )
 
     session.add(item)
@@ -115,7 +116,9 @@ def test_cannot_receive_completed_purchase(session):
         product_id=product.id,
         quantity=Decimal("10"),
         unit_cost=Decimal("100.00"),
-    )
+         line_total=Decimal("1000.00"),
+)
+    
 
     session.add(item)
     session.commit()
@@ -131,4 +134,4 @@ def test_cannot_receive_completed_purchase(session):
     session.refresh(product)
 
     assert product.stock_quantity == Decimal("10.000")
-    
+    line_total=Decimal("14000.00"),
