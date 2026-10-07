@@ -14,6 +14,7 @@ def create_sale(
     user_id: int,
     items: list[dict],
     customer_id: int | None = None,
+    auto_commit: bool = True,
 ) -> Sale:
     """
     Create a completed sale from the supplied cart items.
@@ -31,6 +32,11 @@ def create_sale(
     source_type may be:
         "stock"          - item comes from Abori stock
         "special_order"  - item is sourced from another supplier/shop
+
+    When auto_commit is True, the sale is committed immediately.
+
+    When auto_commit is False, the caller controls the transaction.
+    This is used by higher-level workflows such as checkout.
     """
 
     if not items:
@@ -206,7 +212,8 @@ def create_sale(
 
             session.add(movement)
 
-    session.commit()
-    session.refresh(sale)
+    if auto_commit:
+        session.commit()
+        session.refresh(sale)
 
     return sale
